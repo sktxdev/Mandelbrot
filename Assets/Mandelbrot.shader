@@ -3,6 +3,7 @@ Shader "Explorer/Mandelbrot"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _Area ("Area", vector) = (0, 0, 4, 4)
     }
     SubShader
     {
@@ -37,16 +38,18 @@ Shader "Explorer/Mandelbrot"
                 return o;
             }
 
+            float4 _Area;
             sampler2D _MainTex;
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float2 c = i.uv;
+                float2 c = _Area.xy + (i.uv - 0.5)*_Area.zw;
+                //float2 c = i.uv;
                 float2 z;
                 float iter;
                 for (iter = 0; iter < 255; iter++)
                 {
-                    // this is the manderbrot equation
+                    // this is the mandelbrot equation
                     z = float2(z.x * z.x - z.y * z.y, 2 * z.x * z.y) + c;
                     if (length(z) > 2) break;
 
