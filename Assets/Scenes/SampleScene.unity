@@ -376,7 +376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mat: {fileID: 2100000, guid: 37577aee241314109bc8677bd0442a60, type: 2}
   pos: {x: 2, y: 2}
-  scale: 1.11
+  scale: -1.63
   counter: 0
 --- !u!1 &1975964664
 GameObject:

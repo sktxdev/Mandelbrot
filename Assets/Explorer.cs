@@ -17,7 +17,7 @@ public class Explorer : MonoBehaviour
         float scaleY = scale;
 
 
-        if (aspect > 1f)
+        if (aspect > 1.0f)
         {
             scaleY /= aspect;
         }
@@ -25,10 +25,6 @@ public class Explorer : MonoBehaviour
         {
             scaleX *= aspect;
         }
-
-        counter++;
-        if (counter % 200 == 0)
-            Debug.Log($"ScaleX: {scaleX}, ScaleY: {scaleY}, aspect: {aspect}");
 
         mat.SetVector("_Area", new Vector4(pos.x, pos.y, scaleX, scaleY));
     }
