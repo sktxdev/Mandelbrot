@@ -10,13 +10,25 @@ public class Explorer : MonoBehaviour
     public float speed;
 
 
+    private Vector2 smoothPos;
+    private float smoothScale;
+
+
     public int counter = 0;
 
     private void UpdateShader() {
 
+        // Smooth positioning and scaling
+        // Lerp means move from pos to smoothPos in 30% increments
+        smoothPos = Vector2.Lerp(smoothPos, pos, 0.3f);
+        smoothScale = Mathf.Lerp(smoothScale, scale, 0.03f);
+
+
         float aspect = (float)Screen.width / (float)Screen.height;
-        float scaleX = scale;
-        float scaleY = scale;
+        float scaleX = smoothScale;
+        float scaleY = smoothScale;
+
+
 
 
         if (aspect > 1.0f)
@@ -28,7 +40,7 @@ public class Explorer : MonoBehaviour
             scaleX *= aspect;
         }
 
-        mat.SetVector("_Area", new Vector4(pos.x, pos.y, scaleX, scaleY));
+        mat.SetVector("_Area", new Vector4(smoothPos.x, smoothPos.y, scaleX, scaleY));
     }
 
     void FixedUpdate()
@@ -48,25 +60,30 @@ public class Explorer : MonoBehaviour
 
     private void HandlePanning()
     {
+        // RIGHT
         if (Input.GetKey(KeyCode.D))
         {
             pos.x -= .01f * scale;
         }
 
+        // LEFT
         if (Input.GetKey(KeyCode.A))
         {
             pos.x += 0.01f * scale;
         }
 
+        // UP
         if (Input.GetKey(KeyCode.W))
+        {
+            pos.y += 0.01f * scale;
+        }
+
+        // DOWN
+        if (Input.GetKey(KeyCode.S))
         {
             pos.y -= .01f * scale;
         }
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            pos.y += 0.01f * scale;
-        }
     }
 
 }
