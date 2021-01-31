@@ -43,7 +43,7 @@ Shader "Explorer/Mandelbrot"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float2 c = _Area.xy + (i.uv - 0.5)*_Area.zw;
+                float2 c = _Area.xy + (i.uv - 0.5)*_Area.zw; // xyzw
                 //float2 c = i.uv;
                 float2 z;
                 float iter;
